@@ -84,11 +84,12 @@ export default function App() {
       }
 
       await LocalNotifications.createChannel({
-        id: 'faculty_alerts',
+        id: 'faculty_alerts_v2',
         name: 'Faculty Alerts',
         description: 'Reminders for upcoming classes',
         importance: 5, // 5 = MAX (Heads-up + Sound)
         visibility: 1, // 1 = PUBLIC
+        sound: 'beep.wav',
       });
 
       await LocalNotifications.cancel({ notifications: (await LocalNotifications.getPending()).notifications });
@@ -110,8 +111,9 @@ export default function App() {
               id: notifId++,
               title: 'Upcoming Session in 20m',
               body: `Class "${schedule.className}" in Room ${schedule.roomNumber} starts at ${schedule.startTime}`,
-              schedule: { at: reminderDate20 },
-              channelId: 'faculty_alerts'
+              schedule: { at: reminderDate20, allowWhileIdle: true },
+              sound: 'beep.wav',
+              channelId: 'faculty_alerts_v2'
             });
           }
 
@@ -122,8 +124,9 @@ export default function App() {
               id: notifId++,
               title: 'Upcoming Session in 10m',
               body: `Class "${schedule.className}" in Room ${schedule.roomNumber} starts at ${schedule.startTime}`,
-              schedule: { at: reminderDate10 },
-              channelId: 'faculty_alerts'
+              schedule: { at: reminderDate10, allowWhileIdle: true },
+              sound: 'beep.wav',
+              channelId: 'faculty_alerts_v2'
             });
           }
         } else {
@@ -151,8 +154,9 @@ export default function App() {
               id: notifId++,
               title: 'Upcoming Session in 20m',
               body: `Class "${schedule.className}" in Room ${schedule.roomNumber} starts at ${schedule.startTime}`,
-              schedule: { on: { weekday: notifWeekday20, hour: notifHr20, minute: notifMin20, second: 0 } },
-              channelId: 'faculty_alerts'
+              schedule: { on: { weekday: notifWeekday20, hour: notifHr20, minute: notifMin20, second: 0 }, allowWhileIdle: true },
+              sound: 'beep.wav',
+              channelId: 'faculty_alerts_v2'
             });
 
             // 10 mins before
@@ -173,8 +177,9 @@ export default function App() {
               id: notifId++,
               title: 'Upcoming Session in 10m',
               body: `Class "${schedule.className}" in Room ${schedule.roomNumber} starts at ${schedule.startTime}`,
-              schedule: { on: { weekday: notifWeekday10, hour: notifHr10, minute: notifMin10, second: 0 } },
-              channelId: 'faculty_alerts'
+              schedule: { on: { weekday: notifWeekday10, hour: notifHr10, minute: notifMin10, second: 0 }, allowWhileIdle: true },
+              sound: 'beep.wav',
+              channelId: 'faculty_alerts_v2'
             });
           }
         }
